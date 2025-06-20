@@ -6,8 +6,8 @@ import com.backend.insumo_servicio.dto.TipoInsumoDTO;
 
 public interface TipoInsumoService {
     List<TipoInsumoDTO> obtenerTipoInsumosActivos();
-    TipoInsumoDTO buscarTipoInsumoPorId(Integer id);
+    TipoInsumoDTO buscarTipoInsumoPorId(Long id);
     TipoInsumoDTO crearTipoInsumo(TipoInsumoDTO dto);
-    TipoInsumoDTO actualizarTipoInsumo(Integer id, TipoInsumoDTO dto);
-    void eliminarTipoInsumo(Integer id);
+    TipoInsumoDTO actualizarTipoInsumo(Long id, TipoInsumoDTO dto);
+    void eliminarTipoInsumo(Long id);
 }

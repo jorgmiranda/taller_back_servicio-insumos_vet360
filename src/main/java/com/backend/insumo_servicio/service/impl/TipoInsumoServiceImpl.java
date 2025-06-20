@@ -25,7 +25,7 @@ public class TipoInsumoServiceImpl implements TipoInsumoService {
     }
 
     @Override
-    public TipoInsumoDTO buscarTipoInsumoPorId(Integer id) {
+    public TipoInsumoDTO buscarTipoInsumoPorId(Long id) {
         TipoInsumo entity = tipoInsumoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("TipoInsumo no encontrado"));
         return convertirADTO(entity);
@@ -42,7 +42,7 @@ public class TipoInsumoServiceImpl implements TipoInsumoService {
     }
 
     @Override
-    public TipoInsumoDTO actualizarTipoInsumo(Integer id, TipoInsumoDTO dto) {
+    public TipoInsumoDTO actualizarTipoInsumo(Long id, TipoInsumoDTO dto) {
         TipoInsumo existente = tipoInsumoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("TipoInsumo no encontrado"));
 
@@ -52,7 +52,7 @@ public class TipoInsumoServiceImpl implements TipoInsumoService {
     }
 
     @Override
-    public void eliminarTipoInsumo(Integer id) {
+    public void eliminarTipoInsumo(Long id) {
         TipoInsumo tipoInsumo = tipoInsumoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("TipoInsumo no encontrado"));
         tipoInsumo.setEstado(false);
