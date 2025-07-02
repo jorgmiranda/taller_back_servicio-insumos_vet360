@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,18 +29,21 @@ public class ServicioController {
     private ServicioService servicioService;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<ApiResponse<List<ServicioResponseDTO>>> getAll() {
         List<ServicioResponseDTO> lista = servicioService.obtenerServiciosActivos();
         return ResponseEntity.ok(ApiResponse.exito("Listado exitoso", lista));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<ApiResponse<ServicioResponseDTO>> getById(@PathVariable Long id) {
         ServicioResponseDTO dto = servicioService.buscarServicioPorId(id);
         return ResponseEntity.ok(ApiResponse.exito("Encontrado correctamente", dto));
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<ApiResponse<ServicioResponseDTO>> create(@RequestBody ServicioRequestDTO dto) {
         ServicioResponseDTO creado = servicioService.crearServicio(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.exito("Creado correctamente", creado));
@@ -52,6 +56,7 @@ public class ServicioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         servicioService.eliminarServicio(id);
         return ResponseEntity.ok(ApiResponse.exito("Eliminado correctamente", null));

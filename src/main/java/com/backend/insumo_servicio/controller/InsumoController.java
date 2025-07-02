@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,24 +29,28 @@ public class InsumoController {
     private InsumoService insumoService;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<ApiResponse<List<InsumoResponseDTO>>> getAll() {
         List<InsumoResponseDTO> lista = insumoService.obtenerInsumosActivos();
         return ResponseEntity.ok(ApiResponse.exito("Listado exitoso", lista));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<ApiResponse<InsumoResponseDTO>> getById(@PathVariable Long id) {
         InsumoResponseDTO dto = insumoService.buscarInsumoPorId(id);
         return ResponseEntity.ok(ApiResponse.exito("Encontrado correctamente", dto));
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<ApiResponse<InsumoResponseDTO>> create(@RequestBody InsumoRequestDTO dto) {
         InsumoResponseDTO creado = insumoService.crearInsumo(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.exito("Creado correctamente", creado));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','VETERINARIO', 'ASISTENTE')")
     public ResponseEntity<ApiResponse<InsumoResponseDTO>> update(@PathVariable Long id, @RequestBody InsumoRequestDTO dto) {
         InsumoResponseDTO actualizado = insumoService.actualizarInsumo(id, dto);
         return ResponseEntity.ok(ApiResponse.exito("Actualizado correctamente", actualizado));
