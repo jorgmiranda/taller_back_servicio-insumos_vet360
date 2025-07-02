@@ -34,4 +34,4 @@ EXPOSE 8090
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 
 # docker build -t servicio_inusmo .
-# docker run -d -p 8082:8082 --name servicio_inusmo_app servicio_inusmo
+# docker run -d -p 8090:8090 --name servicio_insumo_app --restart unless-stopped servicio_inusmo
