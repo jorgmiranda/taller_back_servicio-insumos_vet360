@@ -5,6 +5,13 @@ public class TipoInsumoDTO {
     private String nombreTipo;
     private Boolean estado;
 
+    public TipoInsumoDTO(Long id, String nombreTipo, Boolean estado) {
+        this.id = id;
+        this.nombreTipo = nombreTipo;
+        this.estado = estado;
+    }
+    public TipoInsumoDTO() {
+    }
     public Long getId() {
         return id;
     }
